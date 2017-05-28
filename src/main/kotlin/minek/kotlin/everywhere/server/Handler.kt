@@ -11,3 +11,4 @@ class Handler<P, R> {
     class NotImplemented : Throwable()
 }
 
+fun <P, R> f() = Handler<P, R>()

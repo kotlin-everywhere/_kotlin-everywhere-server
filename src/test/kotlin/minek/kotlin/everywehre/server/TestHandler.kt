@@ -2,6 +2,7 @@ package minek.kotlin.everywehre.server
 
 import minek.kotlin.everywhere.server.Container
 import minek.kotlin.everywhere.server.Handler
+import minek.kotlin.everywhere.server.f
 import org.junit.Assert
 import org.junit.Test
 
