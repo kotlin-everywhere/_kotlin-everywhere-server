@@ -30,4 +30,23 @@ class TestHandler {
 
         container.dummy.handler(Unit)
     }
+
+    @Test
+    fun testDoHandle() {
+        val container = object : Container() {
+            val increase = f<Int, Int>()
+            val value = f<Unit, Int>()
+            val sideEffect = f<Int, Unit>()
+
+            init {
+                increase { it + 1 }
+                value { 1984 }
+                sideEffect {}
+            }
+        }
+
+        Assert.assertEquals("2", container.increase.doHandle("1"))
+        Assert.assertEquals("1984", container.value.doHandle(""))
+        Assert.assertEquals("", container.sideEffect.doHandle("1"))
+    }
 }

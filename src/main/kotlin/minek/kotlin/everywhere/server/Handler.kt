@@ -1,6 +1,8 @@
 package minek.kotlin.everywhere.server
 
-class Handler<P, R> {
+import com.google.gson.GsonBuilder
+
+class Handler<P, R>(private val parameterClass: Class<P>) {
     var handler: (P) -> R = { throw NotImplemented() }
         private set
 
@@ -8,7 +10,22 @@ class Handler<P, R> {
         this.handler = handler
     }
 
-    class NotImplemented : Throwable()
+    internal fun doHandle(json: String): String {
+        @Suppress("UNCHECKED_CAST")
+        val parameter =
+                if (parameterClass == Unit.javaClass) Unit as P
+                else gson.fromJson(json, parameterClass)
+        return handler(parameter).let {
+            when (it) {
+                is Unit -> ""
+                else -> gson.toJson(it)
+            }
+        }
+    }
+
+    internal class NotImplemented : Throwable()
 }
 
-fun <P, R> f() = Handler<P, R>()
+inline fun <reified P, R> f() = Handler<P, R>(P::class.java)
+
+private val gson = GsonBuilder().create()
