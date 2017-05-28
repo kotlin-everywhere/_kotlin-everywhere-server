@@ -32,8 +32,6 @@ class TestContainer {
             var double = DoubleContainer()
         }
 
-        assertEquals(null, container.findHandler("/"))
-        assertEquals(null, container.findHandler("/echo"))
         assertEquals(container.echo, container.findHandler("echo"))
         assertEquals(container.double.echo, container.findHandler("double/echo"))
     }
