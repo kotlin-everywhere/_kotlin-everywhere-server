@@ -12,11 +12,12 @@ class Counter : Container() {
 
 class ExampleServer : Container() {
     val echo = f<String, String>()
+
+    data class DateForm(val year: Int, val month: Int, val date: Int)
+
     val date = f<DateForm, Date>()
 
     val counter = Counter()
-
-    data class DateForm(val year: Int, val month: Int, val date: Int)
 }
 
 
